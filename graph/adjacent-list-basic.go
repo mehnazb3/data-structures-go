@@ -1,7 +1,7 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type Graph struct {
@@ -9,50 +9,50 @@ type Graph struct {
 }
 
 type Vertix struct {
-  Key int
-  Edges []*Vertix
+	Key   int
+	Edges []*Vertix
 }
 
 func (g *Graph) AddVertix(data int) *Vertix {
-  if getVertixByKey(g.Vertices, data) != nil {
-  	return nil
-  }
-  newVertix := &Vertix{
-  	Key: data,
-  }
-  g.Vertices = append(g.Vertices, newVertix )
-  return newVertix
+	if getVertixByKey(g.Vertices, data) != nil {
+		return nil
+	}
+	newVertix := &Vertix{
+		Key: data,
+	}
+	g.Vertices = append(g.Vertices, newVertix)
+	return newVertix
 }
 
 func getVertixByKey(list []*Vertix, data int) *Vertix {
-  for _, vertix := range list {
-  	if vertix.Key == data {
-  		return vertix
-  	}
-  }
-  return nil
+	for _, vertix := range list {
+		if vertix.Key == data {
+			return vertix
+		}
+	}
+	return nil
 }
 
 func (g *Graph) AddEdge(from int, to int, bidirectional bool) {
-  fromVertix := getVertixByKey(g.Vertices, from)
-  toVertix := getVertixByKey(g.Vertices, to)
-  if fromVertix == nil || toVertix == nil {
-  	return 
-  }
+	fromVertix := getVertixByKey(g.Vertices, from)
+	toVertix := getVertixByKey(g.Vertices, to)
+	if fromVertix == nil || toVertix == nil {
+		return
+	}
 
-  fromVertix.Edges = append(fromVertix.Edges, toVertix)
-  if bidirectional {
-  	toVertix.Edges = append(toVertix.Edges, fromVertix)
-  }
+	fromVertix.Edges = append(fromVertix.Edges, toVertix)
+	if bidirectional {
+		toVertix.Edges = append(toVertix.Edges, fromVertix)
+	}
 }
 
 func (g *Graph) Print() {
-  for _, vertix := range g.Vertices {
-  	fmt.Printf("Vertix %v : \n", vertix.Key)
-  	for _, edge := range vertix.Edges {
-      fmt.Printf("Edges: %v \n", edge)
-  	}
-  }
+	for _, vertix := range g.Vertices {
+		fmt.Printf("Vertix %v : \n", vertix.Key)
+		for _, edge := range vertix.Edges {
+			fmt.Printf("Edges: %v \n", edge)
+		}
+	}
 }
 
 func main() {

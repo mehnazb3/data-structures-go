@@ -7,7 +7,7 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type Node struct {
@@ -17,7 +17,7 @@ type Node struct {
 }
 
 type DoublyLinkedList struct {
-	Head * Node
+	Head   *Node
 	Length int
 }
 
@@ -44,7 +44,7 @@ func (d *DoublyLinkedList) set(node *Node) Node {
 
 func (d *DoublyLinkedList) setAtPosition(node *Node, pos int) Node {
 	if pos > d.Length {
-      return Node{}
+		return Node{}
 	}
 	if pos == 0 {
 		return d.prepend(node)
@@ -55,14 +55,14 @@ func (d *DoublyLinkedList) setAtPosition(node *Node, pos int) Node {
 	currentIndex := 0
 	currentItem := d.Head
 	for currentItem != nil {
-		if currentIndex == (pos-1) {
-		   nextNode := currentItem.Next
-           node.Next = nextNode
-           node.Prev = currentItem
-           currentItem.Next = node
-           nextNode.Prev = node
-           d.Length += 1
-           break
+		if currentIndex == (pos - 1) {
+			nextNode := currentItem.Next
+			node.Next = nextNode
+			node.Prev = currentItem
+			currentItem.Next = node
+			nextNode.Prev = node
+			d.Length += 1
+			break
 		}
 		currentItem = currentItem.Next
 		currentIndex += 1
@@ -86,73 +86,73 @@ func (d *DoublyLinkedList) prepend(node *Node) Node {
 }
 
 func (d *DoublyLinkedList) traverse() []Node {
-    var nodes []Node
-    itemToPoint := d.Head
-    for itemToPoint != nil {
-    	nodes = append(nodes, *itemToPoint)
-    	itemToPoint = itemToPoint.Next
-    }
+	var nodes []Node
+	itemToPoint := d.Head
+	for itemToPoint != nil {
+		nodes = append(nodes, *itemToPoint)
+		itemToPoint = itemToPoint.Next
+	}
 
 	return nodes
 }
 
-func (d *DoublyLinkedList) delete(value int) { 
-    if d.Length < 1 {
-    	return
-    }
-    pointToElement := d.Head
+func (d *DoublyLinkedList) delete(value int) {
+	if d.Length < 1 {
+		return
+	}
+	pointToElement := d.Head
 
-    for pointToElement != nil {
-    	if pointToElement.Data == value {
-            if pointToElement.Prev != nil {
-           	  pointToElement.Prev.Next = pointToElement.Next
-            } else {
-            	d.Head = pointToElement.Next
-            }
-           
-            if pointToElement.Next != nil {
-           	  pointToElement.Next.Prev = pointToElement.Prev
-            }
-           
-           d.Length -= 1
-    	}
-    	pointToElement = pointToElement.Next
-    }
+	for pointToElement != nil {
+		if pointToElement.Data == value {
+			if pointToElement.Prev != nil {
+				pointToElement.Prev.Next = pointToElement.Next
+			} else {
+				d.Head = pointToElement.Next
+			}
+
+			if pointToElement.Next != nil {
+				pointToElement.Next.Prev = pointToElement.Prev
+			}
+
+			d.Length -= 1
+		}
+		pointToElement = pointToElement.Next
+	}
 	return
 }
 
 func main() {
-  var myDoublyLinkedList DoublyLinkedList
-  myDoublyLinkedList.set(&Node{
-  	Data: 10,
-  })                                             // 10
-  myDoublyLinkedList.set(&Node{
-  	Data: 20,
-  })                                             // 10, 20
-  myDoublyLinkedList.prepend(&Node{
-  	Data: 5,
-  })                                             // 5, 10, 20
-  myDoublyLinkedList.prepend(&Node{
-  	Data: 1,
-  })                                             // 1, 5, 10, 20
-  myDoublyLinkedList.setAtPosition(&Node{
-  	Data: 3,
-  }, 2)                                          // 1, 5, 3, 10, 20
-  myDoublyLinkedList.setAtPosition(&Node{
-  	Data: 50,
-  }, 5)                                          // 1, 5, 3, 10, 20, 50
-  myDoublyLinkedList.setAtPosition(&Node{
-  	Data: 50,
-  }, 6)                                          // 1, 5, 3, 10, 20, 50, 50
-  myDoublyLinkedList.setAtPosition(&Node{
-  	Data: 60,
-  }, 60)                                         // 1, 5, 3, 10, 20, 50, 50                                    
-  nodes := myDoublyLinkedList.traverse()
-  fmt.Println("Doubly Linked List nodes", nodes)
+	var myDoublyLinkedList DoublyLinkedList
+	myDoublyLinkedList.set(&Node{
+		Data: 10,
+	}) // 10
+	myDoublyLinkedList.set(&Node{
+		Data: 20,
+	}) // 10, 20
+	myDoublyLinkedList.prepend(&Node{
+		Data: 5,
+	}) // 5, 10, 20
+	myDoublyLinkedList.prepend(&Node{
+		Data: 1,
+	}) // 1, 5, 10, 20
+	myDoublyLinkedList.setAtPosition(&Node{
+		Data: 3,
+	}, 2) // 1, 5, 3, 10, 20
+	myDoublyLinkedList.setAtPosition(&Node{
+		Data: 50,
+	}, 5) // 1, 5, 3, 10, 20, 50
+	myDoublyLinkedList.setAtPosition(&Node{
+		Data: 50,
+	}, 6) // 1, 5, 3, 10, 20, 50, 50
+	myDoublyLinkedList.setAtPosition(&Node{
+		Data: 60,
+	}, 60) // 1, 5, 3, 10, 20, 50, 50
+	nodes := myDoublyLinkedList.traverse()
+	fmt.Println("Doubly Linked List nodes", nodes)
 
-  myDoublyLinkedList.delete(1)
-  myDoublyLinkedList.delete(50)
+	myDoublyLinkedList.delete(1)
+	myDoublyLinkedList.delete(50)
 
-  nodes = myDoublyLinkedList.traverse()
-  fmt.Println("Doubly Linked List nodes after deletion", nodes)
+	nodes = myDoublyLinkedList.traverse()
+	fmt.Println("Doubly Linked List nodes after deletion", nodes)
 }
